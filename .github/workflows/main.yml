@@ -9,6 +9,7 @@ jobs:
      - name: Install Dependencies
        uses: cypress-io/github-action@v6.5.0
        with:
+          working-directory: cypress
           command: yarn
      - name: Run Chrome Cypress Tests
        uses: cypress-io/github-action@v6.5.0
