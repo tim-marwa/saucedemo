@@ -6,20 +6,16 @@ context('Cypress.Commands', () => {
     const validPassword = 'secret_sauce';
     const invalidUsername = 'invalid_user';
     const invalidPassword = 'wrong_password';
-
     // Define the selectors for the login page elements
     const usernameInput = '#user-name';
     const passwordInput = '#password';
     const loginButton = '#login-button';
     const errorMessage = '[data-test="error"]';
     const sideMenue = '#react-burger-menu-btn';
-    // const id = (value, operator = '=') => `[id${operator}"${value}"]`;
-
     // Define the selectors for the inventory page elements
     const addToCartButtons = '.btn_inventory';
     const cartIcon = '.shopping_cart_link';
     const cartBadge = '.shopping_cart_badge';
-
     // Define the selectors for the cart page elements
     const checkoutButton = '.btn_action.checkout_button';
     // Define the selectors for the checkout page elements
@@ -28,8 +24,7 @@ context('Cypress.Commands', () => {
     const zipCodeInput = '#postal-code';
     const continueButton = '.btn_primary.cart_button';
     const finishButton = '.btn_action.cart_button';
-    // Write a test suite for the login page
-    describe('Login page tests', () => {
+    describe('Login page test suite', () => {
         // Before each test, visit the login page
         beforeEach(() => {
             cy.visit(loginPageURL);
@@ -71,66 +66,85 @@ context('Cypress.Commands', () => {
             cy.get(errorMessage).should('contain.text', 'Username and password do not match any user in this service');
         });
     });
-    describe('Inventory page tests', () => {
+    describe('Inventory page test suite', () => {
         // Before each test, visit the login page
         beforeEach(() => {
-          cy.visit(loginPageURL);
+            cy.visit(loginPageURL);
+            // Enter the valid username and password
+            cy.get(usernameInput).type(validUsername);
+            cy.get(passwordInput).type(validPassword);
+            // Click on the login button
+            cy.get(loginButton).click();
+            // Assert that the URL is changed to the inventory page
+            cy.url().should('include', '/inventory.html');
+            //reset app state
+            cy.get(sideMenue).click();
+            cy.get(id('reset_sidebar_link')).should('be.visible').click();
+            cy.get(id('react-burger-cross-btn')).should('be.visible').click();
+            cy.reload();
         });
         // Test case 1: Login with valid credentials and add one item to the cart
         it('should login with valid credentials and add one item to the cart', () => {
-          // Enter the valid username and password
-          cy.get(usernameInput).type(validUsername);
-          cy.get(passwordInput).type(validPassword);
-          // Click on the login button
-          cy.get(loginButton).click();
-          // Assert that the URL is changed to the inventory page
-          cy.url().should('include', '/inventory.html');
-          cy.get(sideMenue).click();
-          cy.get(id('reset_sidebar_link')).should('be.visible').click();
-          // Click on the first add to cart button
-          cy.get(addToCartButtons).first().click();
-          // Assert that the cart badge shows 1 item in the cart
-          cy.get(cartBadge).should('have.text', '1');
-          // Click on the cart icon
-          cy.get(cartIcon).click();
-          // Assert that the URL is changed to the cart page
-          cy.url().should('include', '/cart.html');
-          // Assert that there is one item in the cart
-          cy.get('.cart_item').should('have.length', 1);
-          // Click on the checkout button
-          cy.get(checkoutButton).click();
-          // Assert that the URL is changed to the checkout page
-          cy.url().should('include', '/checkout-step-one.html');
+
+            // Click on the first add to cart button
+            cy.get(addToCartButtons).first().click();
+            // Assert that the cart badge shows 1 item in the cart
+            cy.get(cartBadge).should('have.text', '1');
+            // Click on the cart icon
+            cy.get(cartIcon).click();
+            // Assert that the URL is changed to the cart page
+            cy.url().should('include', '/cart.html');
+            // Assert that there is one item in the cart
+            cy.get('.cart_item').should('have.length', 1);
+            // Click on the checkout button
+            cy.get(checkoutButton).click();
+            // Assert that the URL is changed to the checkout page
+            cy.url().should('include', '/checkout-step-one.html');
+            // Enter some valid checkout information
+            cy.get(firstNameInput).type('John');
+            cy.get(lastNameInput).type('Doe');
+            cy.get(zipCodeInput).type('12345');
+            // Click on the continue button
+            cy.get(continueButton).click();
+            // Assert that the URL is changed to the overview page
+            cy.url().should('include', '/checkout-step-two.html');
+            // Click on the finish button
+            cy.get(finishButton).click();
+            // Assert that the URL is changed to the confirmation page
+            cy.url().should('include', '/checkout-complete.html');
+
         });
-      
+
         // Test case 2: Login with valid credentials and add multiple items to the cart
         it('should login with valid credentials and add multiple items to the cart', () => {
-          // Enter the valid username and password
-          cy.get(usernameInput).type(validUsername);
-          cy.get(passwordInput).type(validPassword);
-      
-          // Click on the login button
-          cy.get(loginButton).click();
-          cy.get(sideMenue).click();
-          cy.get(id('reset_sidebar_link')).should('be.visible').click();
-          // Assert that the URL is changed to the inventory page
-          cy.url().should('include', '/inventory.html');
-          // Click on all the add to cart buttons
-          cy.get(addToCartButtons).each(($button) => {
-            cy.wrap($button).click();
-          });
-          // Assert that the cart badge shows 6 items in the cart
-          cy.get(cartBadge).should('have.text', '5');
-          // Click on the cart icon
-          cy.get(cartIcon).click();
-          // Assert that the URL is changed to the cart page
-          cy.url().should('include', '/cart.html');
-          // Assert that there are six items in the cart
-          cy.get('.cart_item').should('have.length', 5);
-          // Click on the checkout button
-          cy.get(checkoutButton).click();
-          // Assert that the URL is changed to the checkout page
-          cy.url().should('include', '/checkout-step-one.html');
+            // Click on all the add to cart buttons
+            cy.get(addToCartButtons).each(($button) => {
+                cy.wrap($button).click();
+            });
+            // Assert that the cart badge shows 6 items in the cart
+            cy.get(cartBadge).should('have.text', '6');
+            // Click on the cart icon
+            cy.get(cartIcon).click();
+            // Assert that the URL is changed to the cart page
+            cy.url().should('include', '/cart.html');
+            // Assert that there are six items in the cart
+            cy.get('.cart_item').should('have.length', 6);
+            // Click on the checkout button
+            cy.get(checkoutButton).click();
+            // Assert that the URL is changed to the checkout page
+            cy.url().should('include', '/checkout-step-one.html');
+            // Enter some valid checkout information
+            cy.get(firstNameInput).type('John');
+            cy.get(lastNameInput).type('Doe');
+            cy.get(zipCodeInput).type('12345');
+            // Click on the continue button
+            cy.get(continueButton).click();
+            // Assert that the URL is changed to the overview page
+            cy.url().should('include', '/checkout-step-two.html');
+            // Click on the finish button
+            cy.get(finishButton).click();
+            // Assert that the URL is changed to the confirmation page
+            cy.url().should('include', '/checkout-complete.html');
         });
-      });
+    });
 });
