@@ -1,0 +1,9 @@
+
+node_modules/**
+cypress/results/*.xml
+.DS_Store
+**/**/.DS_Store
+*.mp4
+cypress/screenshots/**/*.png
+yarn.lock
+cypress/node_modules/**

@@ -1,0 +1,29 @@
+name: Run all Cypress Tests
+on: [push]
+jobs:
+ Cypress-Test:
+   runs-on: ubuntu-latest
+   steps:
+     - name: Checkout GitCode
+       uses: actions/checkout@v4
+     - name: Run Chrome Cypress Tests
+       uses: cypress-io/github-action@v6.5.0
+       with:
+          working-directory: cypress
+          browser: chrome
+          command: npm run test
+     - name: Run Edge Cypress Tests
+       if: success() || failure()
+       uses: cypress-io/github-action@v6.5.0
+       with:
+         working-directory: cypress
+         browser: edge
+         command: npm run test
+     - name: Run FireFox Cypress Tests
+       if: success() || failure()
+       uses: cypress-io/github-action@v6.5.0
+       with:
+         working-directory: cypress
+         browser: firefox
+         command: npm run test
+    
