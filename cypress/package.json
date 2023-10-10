@@ -9,8 +9,9 @@
     "-------- cypress --------": "",
     "cy:open": "cypress open --e2e --browser=chrome",
     "cy:run_chrome": "cypress run --e2e --browser=chrome",
-    "cy:run_firefox": "cypress run --e2e --browser=firefox",
-    "cy:run_edge": "cypress run --e2e --browser=edge"
+    "cy:run": "cypress run --e2e",
+    "cy:run_edge": "cypress run --e2e --browser=edge",
+    "cy:run_firefox": "cypress run --e2e --browser=firefox"
   },
   "private": true,
   "devDependencies": {

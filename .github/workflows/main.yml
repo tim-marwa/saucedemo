@@ -11,25 +11,25 @@ jobs:
        with:
           working-directory: cypress
           command: yarn
-     - name: Run Chrome Cypress Tests
+     - name: Run Chrome Browser Cypress Tests
        if: success() || failure()
        uses: cypress-io/github-action@v6.5.0
        with:
           working-directory: cypress
           browser: chrome
           command: npm run cy:run_chrome
-     - name: Run Edge Cypress Tests
+     - name: Run Edge Browser Cypress Tests
        if: success() || failure()
        uses: cypress-io/github-action@v6.5.0
        with:
          working-directory: cypress
          browser: edge
          command: npm run cy:run_edge
-     - name: Run FireFox Cypress Tests
+     - name: Run Electron Browser Cypress Tests
        if: success() || failure()
        uses: cypress-io/github-action@v6.5.0
        with:
          working-directory: cypress
-         browser: firefox
-         command: npm run cy:run_firefox
+         browser: electron
+         command: npm run cy:run
     
