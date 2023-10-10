@@ -18,7 +18,7 @@ jobs:
           build: npm run info
           working-directory: cypress
           browser: chrome
-          command: yarn cy:run
+          command: npm run test
      - name: Run Edge Cypress Tests
        if: success() || failure()
        uses: cypress-io/github-action@v6.5.0
@@ -26,7 +26,7 @@ jobs:
          build: npm run info
          working-directory: cypress
          browser: edge
-         command: yarn cy:run
+         command: npm run test
      - name: Run FireFox Cypress Tests
        if: success() || failure()
        uses: cypress-io/github-action@v6.5.0
@@ -34,5 +34,5 @@ jobs:
          build: npm run info
          working-directory: cypress
          browser: firefox
-         command: yarn cy:run
+         command: npm run test
     
