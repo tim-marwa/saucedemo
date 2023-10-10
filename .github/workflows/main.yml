@@ -11,6 +11,7 @@ jobs:
        with:
           working-directory: cypress
           browser: chrome
+          start: yarn
           command: npm run test
      - name: Run Edge Cypress Tests
        if: success() || failure()
