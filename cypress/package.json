@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "cypress run",
-    "prepare": "husky install",
+    "prepare": "cd .. && husky install cypress/.husky",
     "-------- cypress --------": "",
     "cy:open": "cypress open --e2e --browser=chrome",
     "cy:run": "cypress run --e2e --browser=chrome"
