@@ -15,24 +15,21 @@ jobs:
        if: success() || failure()
        uses: cypress-io/github-action@v6.5.0
        with:
-          build: npm run info
           working-directory: cypress
           browser: chrome
-          command: npm run test
+          command: npm run cy:run_chrome
      - name: Run Edge Cypress Tests
        if: success() || failure()
        uses: cypress-io/github-action@v6.5.0
        with:
-         build: npm run info
          working-directory: cypress
          browser: edge
-         command: npm run test
+         command: npm run cy:run_edge
      - name: Run FireFox Cypress Tests
        if: success() || failure()
        uses: cypress-io/github-action@v6.5.0
        with:
-         build: npm run info
          working-directory: cypress
          browser: firefox
-         command: npm run test
+         command: npm run cy:run_firefox
     
