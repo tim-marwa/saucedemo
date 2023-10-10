@@ -19,14 +19,6 @@ export default defineConfig({
         runMode: 0,
     },
     e2e: {
-        // We've imported your old cypress plugins here.
-        // You may want to clean this up later by importing these.
-        setupNodeEvents(on, config) {
-            // eslint-disable-next-line @typescript-eslint/no-var-requires
-            // require('./cypress/plugins/index.js')(on, config);
-            // return currents(on, config);
-        },
-        // baseUrl: 'https://app-stg.cs55.co.uk',
         supportFile: false,
         specPattern: 'cypresstests/cypress/integration/*.spec.{js,jsx,ts,tsx}',
     },
