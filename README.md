@@ -17,9 +17,13 @@ npm install
 Install dependencies
 
 ```bash
-npm install cypress --save-dev
+yarn
 ```
+Generate new package-lock.json
 
+```bash
+npm install --registry https://registry.npmjs.org
+```
 Run cypress in open mode
 
 ```bash
